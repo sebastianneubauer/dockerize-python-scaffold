@@ -1,0 +1,39 @@
+version: '3.5'
+
+volumes:
+  pip_cache_buster:
+
+services:
+  python_local_dev:
+    privileged: True
+    # some ports which should be exposed. E.g. 8000 is jupyter default
+    ports:
+      - "8000:8000"
+    user: "${UID}:${GID}"
+    #user: "root"
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER: ${USER-nobody}
+        UID: ${UID-1234}
+        GID: ${GID-20}
+    volumes:
+      # Mount a docker volume as pip cache
+      # To get it working you need to change the user temporarily above to "root" and then
+      # run once `chown -R $(id -u yourusername):$(id -g yourusername) /home/sneubauer/.cache/pip`
+      - type: volume
+        source: pip_cache_buster
+        target: /home/${USER}/.cache/pip
+        volume:
+          nocopy: true
+      # Mount the workspace directory, assuming that the repos are stored here
+      - .:/home/${USER}/
+
+    image: "python_local_dev" # reproducable image
+    container_name: python_local_dev
+    stdin_open: true
+    tty: true
+    command: tail -f /dev/null
+    environment:
+      - MYSECRET_TOKEN
