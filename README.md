@@ -1,6 +1,13 @@
 # Template for dockerizing your python application for local development
 
-Disclaimer: This is highly opinionated. Tested and optimized for Mac. Heavily inspired by https://github.com/fjetter
+```
+Disclaimer: 
+* This is work in progress.
+* Contributions very welcome. 
+* This is highly opinionated. 
+* Tested and optimized for Mac. 
+* Heavily inspired by https://github.com/fjetter and stackoverflow.
+```
 
 ## Getting started
 
@@ -21,6 +28,32 @@ You can login for ineractive work via
 
 ```
 docker-compose exec python_local_dev bash
+```
+
+To execute the tests, you need to activate the virtual environment
+
+```
+source /tmp/venv/bin/activate
+```
+
+Then you need to install pytest (sorry, WIP)
+
+```
+pip install pytest
+```
+
+Then you should be able to develop your package (==execute tests ;-) 
+
+```
+pytest
+================================================= test session starts ==================================================
+platform linux -- Python 3.7.4, pytest-5.2.1, py-1.8.0, pluggy-0.13.0
+rootdir: /home/sneubauer
+collected 1 item
+
+tests/test_funniest_app.py .                                                                                     [100%]
+
+================================================== 1 passed in 0.21s ===================================================
 ```
 
 ## Get pip caching working
