@@ -1,6 +1,6 @@
 # Template for dockerizing your python application for local development
 
-Disclaimer: This is highly opinionated. Tested and optimized for Mac
+Disclaimer: This is highly opinionated. Tested and optimized for Mac. Heavily inspired by https://github.com/fjetter
 
 ## Getting started
 
